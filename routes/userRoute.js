@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
 // Register a user
 router.post("/register", (req, res) => {
   try {
-    let sql = "INSERT INTO user SET ?";
+    let sql = "INSERT INTO users SET ?";
     const {
       fullname,
       phoneNumber,
@@ -51,9 +51,9 @@ router.post("/register", (req, res) => {
 });
 
 // Login a user
-router.post("login", (req, res) => {
+router.post("/login", (req, res) => {
   try {
-    let sql = "SELECT * FROM user WHERE ?";
+    let sql = "SELECT * FROM users WHERE ?";
     let user = {
       email: req.body.email,
     };
@@ -92,7 +92,7 @@ router.post("login", (req, res) => {
 });
 
 // Verifies token
-router.get("/user/verify", (req, res) => {
+router.get("/verify", (req, res) => {
   const token = req.header("x-auth-token");
   jwt.verify(token, process.env.jwtSecret, (error, decodedToken) => {
     if (error) {
