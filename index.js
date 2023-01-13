@@ -1,6 +1,6 @@
 //Installing dependencies
 const express = require("express");
-// const cors = require("cors");
+const cors = require("cors");
 
 // Transforming express into a variable
 const app = express();
@@ -9,9 +9,9 @@ const app = express();
 const userRoute = require("./routes/userRoute");
 
 // Setting the API Port
-// app.set("port", process.env.PORT || 8000);
+app.set("port", process.env.PORT || 8000);
 app.use(express.json());
-// app.use(cors());
+app.use(cors());
 
 // "Home page" of the api
 app.get("/", (req, res) => {
@@ -22,13 +22,13 @@ app.get("/", (req, res) => {
 app.use("/user", userRoute);
 
 // Listening for the api port
-// app.listen(
-//   app.get("port", (req, res) => {
-//     console.log(`Port available at localhost:${app.get("port")}`);
-//     console.log("Official port available at https://sabindi-app.deta.dev/");
-//     console.log("Press Ctrl + C to close localhost.");
-//   })
-// );
+app.listen(
+  app.get("port", (req, res) => {
+    console.log(`Port available at localhost:${app.get("port")}`);
+    console.log("Official port available at https://sabindi-app.deta.dev/");
+    console.log("Press Ctrl + C to close localhost.");
+  })
+);
 
 // export 'app'
-module.exports = app;
+// module.exports = app;
