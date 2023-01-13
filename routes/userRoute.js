@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const con = require("../library/db_connection");
-const bcryptjs = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // Get all users
@@ -30,8 +30,8 @@ router.post("/register", (req, res) => {
       // role,
     } = req.body;
 
-    const salt = bcryptjs.genSaltSync(10);
-    const hash = bcryptjs.hashSync(password, salt);
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(password, salt);
 
     let user = {
       fullname,
@@ -59,7 +59,7 @@ router.post("login", (req, res) => {
     };
     con.query(sql, user, async (err, result) => {
       if (err) throw err;
-      if (result.lenght === 0) {
+      if (result.length === 0) {
         res.json({ error: "User with this email address does not exist" });
       } else {
         const isMatch = await bcrypt.compare(
@@ -91,9 +91,10 @@ router.post("login", (req, res) => {
   }
 });
 
-router.get("/verify", (req, res) => {
+// Verifies token
+router.get("/user/verify", (req, res) => {
   const token = req.header("x-auth-token");
-  jwt.verify(token, process.envjwtSecret, (error, decodedToken) => {
+  jwt.verify(token, process.env.jwtSecret, (error, decodedToken) => {
     if (error) {
       res.status(401).json({
         msg: "Unauthorized access!",
