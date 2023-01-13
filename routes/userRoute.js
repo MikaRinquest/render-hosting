@@ -30,6 +30,10 @@ router.post("/register", (req, res) => {
       // role,
     } = req.body;
 
+    let emails = {
+      email: req.body.email,
+    };
+
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(password, salt);
 
@@ -40,9 +44,13 @@ router.post("/register", (req, res) => {
       password: hash,
     };
 
-    con.query(sql, user, (err, result) => {
+    con.query(sql, user, emails, (err, result) => {
       if (err) throw err;
-      res.json(`User ${user.fullname} has been created.`);
+      if (result.length > 0) {
+        res.json({ Error: "This email address already exists" });
+      } else {
+        res.json(`User ${user.fullname} has been created.`);
+      }
     });
   } catch (error) {
     console.log(error);
@@ -107,3 +115,10 @@ router.get("/verify", (req, res) => {
 });
 
 module.exports = router;
+
+// {
+//    "fullname":"Mika John Rinquest",
+//     "phoneNumber":"081 707 9992",
+//     "email":"rinquestmika@gmail.com",
+//     "password":"tester"
+// }
