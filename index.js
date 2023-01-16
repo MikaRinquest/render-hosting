@@ -8,6 +8,7 @@ const port = process.env.PORT || 8008;
 
 // Import routes
 const userRoute = require("./routes/userRoute");
+const claimRoute = require("./routes/claimRoute");
 
 // Setting the API Port
 // app.set("port", process.env.PORT || 3000);
@@ -31,6 +32,7 @@ app.listen(port, (req, res) => {
 
 // Using the routes
 app.use("/user", userRoute);
+app.use("/claims", claimRoute);
 
 // export 'app'
 // module.exports = app;
