@@ -2,6 +2,21 @@ const express = require("express");
 const router = express.Router();
 const con = require("../library/db_connection");
 
+//Get claims with client inner join
+router.get("/insurance", (req, res) => {
+  try {
+    let sql =
+      "SELECT  claims.claimsNumber,claims.damages,claims.siteAssDate,claims.qteDarDate,claims.authDate,claims.invDate, client.fullName,client.area FROM claims INNER JOIN client on claims.clientID = client.clientID";
+    con.query(sql, (err, result) => {
+      if (err) throw err;
+      res.json(result);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
+
 // Get all claims
 router.get("/", (req, res) => {
   try {
@@ -31,7 +46,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Add new claim
-router.post("/new-claim", (req, res) => {
+router.post("/", (req, res) => {
   try {
     let sql = "INSERT INTO claims SET ?";
     const {
@@ -67,7 +82,7 @@ router.post("/new-claim", (req, res) => {
 });
 
 // Edit a claim
-router.patch("/edit-claim", (req, res) => {
+router.patch("/", (req, res) => {
   try {
     let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
     const { damages, siteAssDate, qteDarDate, authDate, invDate, dar } =
