@@ -11,6 +11,7 @@ const userRoute = require("./routes/userRoute");
 const claimRoute = require("./routes/claimRoute");
 const clientRoute = require("./routes/clientRoute");
 const emailRoutes = require("./routes/emailRoute");
+const darRoutes = require("./routes/darRoute");
 
 // Setting the API Port
 // app.set("port", process.env.PORT || 3000);
@@ -37,6 +38,7 @@ app.use("/user", userRoute);
 app.use("/claims", claimRoute);
 app.use("/clients", clientRoute);
 app.use("/email", emailRoutes);
+app.use("/dar", darRoutes);
 
 // export 'app'
 // module.exports = app;
