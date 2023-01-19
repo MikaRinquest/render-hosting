@@ -10,6 +10,7 @@ const port = process.env.PORT || 8008;
 const userRoute = require("./routes/userRoute");
 const claimRoute = require("./routes/claimRoute");
 const clientRoute = require("./routes/clientRoute");
+const emailRoutes = require("./routes/emailRoute");
 
 // Setting the API Port
 // app.set("port", process.env.PORT || 3000);
@@ -35,6 +36,7 @@ app.listen(port, (req, res) => {
 app.use("/user", userRoute);
 app.use("/claims", claimRoute);
 app.use("/clients", clientRoute);
+app.use("/email", emailRoutes);
 
 // export 'app'
 // module.exports = app;

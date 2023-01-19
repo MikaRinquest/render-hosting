@@ -6,7 +6,7 @@ const con = require("../library/db_connection");
 router.get("/insurance", (req, res) => {
   try {
     let sql =
-      "SELECT  claims.claimsNumber,claims.damages,claims.siteAssDate,claims.qteDarDate,claims.authDate,claims.invDate, client.fullName,client.area FROM claims INNER JOIN client on claims.clientID = client.clientID";
+      "SELECT * FROM claims INNER JOIN client on claims.clientID = client.clientID";
     con.query(sql, (err, result) => {
       if (err) throw err;
       res.json(result);
