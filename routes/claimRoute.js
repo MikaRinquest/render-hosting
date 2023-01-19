@@ -95,7 +95,7 @@ router.post("/", (req, res) => {
 });
 
 // Edit a claim
-router.patch("/", (req, res) => {
+router.patch("/:id", (req, res) => {
   try {
     let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
     const { damages, siteAssDate, qteDarDate, authDate, invDate, dar } =
