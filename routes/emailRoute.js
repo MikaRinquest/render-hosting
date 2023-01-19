@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const con = require("../library/db_connection");
 const nodemailer = require("nodemailer");
 const con = require("../library/db_connection");
 const multer = require("multer"); //Allows us to use multer(middleware that allows us to handle files sent from the frontend (multipart/form-data))

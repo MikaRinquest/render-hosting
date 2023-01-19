@@ -17,6 +17,19 @@ router.get("/insurance", (req, res) => {
   }
 });
 
+// Get one claim from inner join
+router.get("/insurance/:id", (req, res) => {
+  try {
+    let sql = `SELECT * FROM claims INNER JOIN client on claims.clientID = client.clientID WHERE claimID = ${req.params.id}`;
+    con.query(sql, (err, result) => {
+      if (err) throw err;
+      res.send(result);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
 // Get all claims
 router.get("/", (req, res) => {
   try {
