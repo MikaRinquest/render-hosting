@@ -101,7 +101,6 @@ router.patch("/:id", (req, res) => {
     const { damages, siteAssDate, qteDarDate, authDate, invDate, dar } =
       req.body;
     let claim = {
-      damages,
       siteAssDate,
       qteDarDate,
       authDate,
