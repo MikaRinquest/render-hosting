@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
     let sql = "SELECT * FROM dar";
     con.query(sql, (err, result) => {
       if (err) throw err;
-      console.log(result);
+      res.json(result);
     });
   } catch (error) {
     console.log(error);
