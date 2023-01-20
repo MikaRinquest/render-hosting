@@ -25,62 +25,65 @@ router.post("/", (req, res) => {
       },
     });
 
-    readHTMLFile(__dirname + "", function (err, html) {
-      if (err) {
-        console.log("error reading file", err);
-        return;
+    readHTMLFile(
+      __dirname + "render_API/public/files/DAR_Template/emailDAR.html",
+      function (err, html) {
+        if (err) {
+          console.log("error reading file", err);
+          return;
+        }
+        const template = handlebars.compile(html);
+        const {
+          damage,
+          facility,
+          severity,
+          category,
+          method,
+          recommendation,
+          internalLocations,
+          externalLocations,
+          concealed,
+          notConcealed,
+          remarks,
+        } = req.body;
+
+        const dar = {
+          damage,
+          facility,
+          severity,
+          category,
+          method,
+          recommendation,
+          internalLocations,
+          externalLocations,
+          concealed,
+          notConcealed,
+          remarks,
+        };
+        const htmlToSend = template(dar);
+
+        const mailData = {
+          from: process.env.MAILER_USER,
+          to: "rinquestmika@gmail.com",
+          subject: "Sending DAR information",
+          text: htmlToSend,
+        };
+        transporter.verify((error, success) => {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log("Email valid", success);
+          }
+        });
+        transporter.sendMail(mailData, (error, info) => {
+          if (error) {
+            console.log(error);
+          } else {
+            res.send("Please check your emails");
+          }
+        });
       }
-      const template = handlebars.compile(html);
-      const {
-        damage,
-        facility,
-        severity,
-        category,
-        method,
-        recommendation,
-        internalLocations,
-        externalLocations,
-        concealed,
-        notConcealed,
-        remarks,
-      } = req.body;
-
-      const dar = {
-        damage,
-        facility,
-        severity,
-        category,
-        method,
-        recommendation,
-        internalLocations,
-        externalLocations,
-        concealed,
-        notConcealed,
-        remarks,
-      };
-      const htmlToSend = template(dar);
-
-      const mailData = {
-        from: process.env.MAILER_USER,
-        to: "rinquestmika@gmail.com",
-        subject: "Sending DAR information",
-        text: htmlToSend,
-      };
-      transporter.verify((error, success) => {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log("Email valid", success);
-        }
-      });
-      transporter.sendMail(mailData, (error, info) => {
-        if (error) {
-          console.log(error);
-        } else {
-          res.send("Please check your emails");
-        }
-      });
-    });
+    );
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
