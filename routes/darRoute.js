@@ -2,6 +2,20 @@ const express = require("express");
 const router = express.Router();
 const con = require("../library/db_connection");
 
+// Get DAR
+router.get("/", (req, res) => {
+  try {
+    let sql = "SELECT * FROM dar";
+    con.query(sql, (err, result) => {
+      if (err) throw err;
+      console.log(result);
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
+
 // Add DAR
 router.post("/", (req, res) => {
   try {
