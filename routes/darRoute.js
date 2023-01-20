@@ -34,17 +34,23 @@ router.post("/", (req, res) => {
       remarks,
       claimsID,
     } = req.body;
+    const catArray = join("', ", category);
+    const intArray = join("', ", internalLocations);
+    const exArray = join("', ", externalLocations);
+    const conArray = join("', ", concealed);
+    const notArray = join("', ", notConcealed);
+
     const dar = {
       damage,
       facility,
       severity,
-      category: [],
+      category: catArray,
       method,
       recommendation,
-      internalLocations: [],
-      externalLocations: [],
-      concealed: [],
-      notConcealed: [],
+      internalLocations: intArray,
+      externalLocations: exArray,
+      concealed: conArray,
+      notConcealed: notArray,
       remarks,
       claimsID,
     };
