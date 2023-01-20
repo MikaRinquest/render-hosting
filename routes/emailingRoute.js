@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
     });
 
     readHTMLFile(
-      __dirname + "render_API/public/files/DAR_Template/emailDAR.html",
+      __dirname + "./public/files/DAR_Template/emailDAR.html",
       function (err, html) {
         if (err) {
           console.log("error reading file", err);
