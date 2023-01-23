@@ -69,7 +69,6 @@ router.post("/", (req, res) => {
       qteDarDate,
       authDate,
       invDate,
-      dar,
       clientID,
     } = req.body;
 
@@ -96,10 +95,14 @@ router.post("/", (req, res) => {
 // Edit site assessment
 router.patch("/site/:id", (req, res) => {
   try {
-    let sql = `INSERT INTO claims SET ? WHERE claimID = ${req.params.id}`;
-    const { siteAssDate } = req.body;
-    const claim = { siteAssDate };
-    con.query(sql, claim, (err, result) => {
+    let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
+    // let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
+    // const { siteAssDate } = req.body;
+    // let claim = {
+    //   siteAssDate,
+    // };
+    con.query(sql, (err, result) => {
+      console.log(sql);
       if (err) throw err;
       res.json("Updated claim");
     });
@@ -112,7 +115,8 @@ router.patch("/site/:id", (req, res) => {
 // Edit quote
 router.patch("/quote/:id", (req, res) => {
   try {
-    let sql = `INSERT INTO claims SET ? WHERE claimID = ${req.params.id}`;
+    // let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
+    let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
     const { qteDarDate } = req.body;
     const claim = { qteDarDate };
     con.query(sql, claim, (err, result) => {
@@ -128,7 +132,8 @@ router.patch("/quote/:id", (req, res) => {
 // Edit auth
 router.patch("/auth/:id", (req, res) => {
   try {
-    let sql = `INSERT INTO claims SET ? WHERE claimID = ${req.params.id}`;
+    // let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
+    let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
     const { authDate } = req.body;
     const claim = { authDate };
     con.query(sql, claim, (err, result) => {
@@ -144,7 +149,8 @@ router.patch("/auth/:id", (req, res) => {
 // Edit inv
 router.patch("/inv/:id", (req, res) => {
   try {
-    let sql = `INSERT INTO claims SET ? WHERE claimID = ${req.params.id}`;
+    // let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
+    let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
     const { invDate } = req.body;
     const claim = { invDate };
     con.query(sql, claim, (err, result) => {

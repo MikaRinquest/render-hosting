@@ -62,4 +62,17 @@ router.post("/", (req, res) => {
   }
 });
 
+// Delete client
+router.delete("/:id", (req, res) => {
+  try {
+    let sql = `DELETE FROM client WHERE clientID = ${req.params.id}`;
+    con.query(sql, (err, result) => {
+      if (err) throw err;
+      res.json("Client has successfully been added.");
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
 module.exports = router;
