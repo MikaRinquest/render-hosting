@@ -8,6 +8,16 @@ const nodemailer = require("nodemailer");
 router.post("/", (req, res) => {
   try {
     const {
+      clientName,
+      clientAddress,
+      clientSuburb,
+      clientNumber,
+      clientEmailAddress,
+      assessmentDate,
+      reportNumber,
+      quoteNumber,
+      claimNumber,
+      insurer,
       email,
       damage,
       facility,
