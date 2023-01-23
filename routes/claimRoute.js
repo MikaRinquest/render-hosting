@@ -94,19 +94,12 @@ router.post("/", (req, res) => {
   }
 });
 
-// Edit a claim
-router.patch("/:id", (req, res) => {
+// Edit site assessment
+router.patch("/site/:id", (req, res) => {
   try {
-    let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
-    const { siteAssDate, qteDarDate, authDate, invDate, dar } =
-      req.body;
-    let claim = {
-      siteAssDate,
-      qteDarDate,
-      authDate,
-      invDate,
-      dar,
-    };
+    let sql = `insert into claims SET ? WHERE claimID = ${req.params.id}`;
+    const { siteAssDate } = req.body;
+    const claim = { siteAssDate };
     con.query(sql, claim, (err, result) => {
       if (err) throw err;
       res.json("Updated claim");
@@ -117,4 +110,51 @@ router.patch("/:id", (req, res) => {
   }
 });
 
+// Edit quote
+router.patch("/quote/:id", (req, res) => {
+  try {
+    let sql = `insert into claims SET ? WHERE claimID = ${req.params.id}`;
+    const { qteDarDate } = req.body;
+    const claim = { qteDarDate };
+    con.query(sql, claim, (err, result) => {
+      if (err) throw err;
+      res.json("Updated claim");
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
+
+// Edit auth
+router.patch("/auth/:id", (req, res) => {
+  try {
+    let sql = `insert into claims SET ? WHERE claimID = ${req.params.id}`;
+    const { authDate } = req.body;
+    const claim = { authDate };
+    con.query(sql, claim, (err, result) => {
+      if (err) throw err;
+      res.json("Updated claim");
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
+
+// Edit inv
+router.patch("/inv/:id", (req, res) => {
+  try {
+    let sql = `insert into claims SET ? WHERE claimID = ${req.params.id}`;
+    const { invDate } = req.body;
+    const claim = { invDate };
+    con.query(sql, claim, (err, result) => {
+      if (err) throw err;
+      res.json("Updated claim");
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
 module.exports = router;
