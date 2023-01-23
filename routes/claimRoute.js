@@ -20,7 +20,7 @@ router.get("/insurance", (req, res) => {
 // Get one claim from inner join
 router.get("/insurance/:id", (req, res) => {
   try {
-    let sql = `SELECT claims.claimsNumber, claims.damages, DATE(claims.siteAssDate) AS siteAssDate, DATE(claims.qteDarDate) AS qteDarDate,  DATE(claims.authDate) AS authDate,  DATE(claims.invDate) AS invDate,    client.* FROM claims INNER JOIN client on claims.clientID = client.clientID WHERE claimID = ${req.params.id}`;
+    let sql = `SELECT * FROM claims INNER JOIN client on claims.clientID = client.clientID WHERE claimID = ${req.params.id}`;
     con.query(sql, (err, result) => {
       if (err) throw err;
       res.send(result);
