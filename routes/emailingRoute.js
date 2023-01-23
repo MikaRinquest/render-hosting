@@ -24,6 +24,16 @@ router.post("/", (req, res) => {
     } = req.body;
 
     const dar = {
+      clientName,
+      clientAddress,
+      clientSuburb,
+      clientNumber,
+      clientEmailAddress,
+      assessmentDate,
+      reportNumber,
+      quoteNumber,
+      claimNumber,
+      insurer,
       email,
       damage,
       facility,
@@ -51,6 +61,16 @@ router.post("/", (req, res) => {
       to: `${dar.email}`,
       subject: "Sending DAR information",
       html: `  <div>
+      <p>Client Name:${dar.clientName}</p>
+      <p>Street Address:${dar.clientAddress}</p>
+      <p>Suburb:${dar.clientSuburb}</p>
+      <p>Phone Number:${dar.clientNumber}</p>
+      <p>Email Address:${dar.clientEmailAddress}</p>
+      <p>Assessment Date:${dar.assessmentDate}</p>
+      <p>Report Number:${dar.reportNumber}</p>
+      <p>Quote Number:${dar.quoteNumber}</p>
+      <p>Claim Number:${dar.claimNumber}</p>
+      <p>Insurer:${dar.insurer}</p>
       <p>Damage Type:${dar.damage}</p>
       <p>Facility:${dar.facility}</p>
       <p>Leak/Damage Severity:${dar.severity}</p>
