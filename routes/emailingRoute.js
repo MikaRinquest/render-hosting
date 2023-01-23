@@ -22,6 +22,7 @@ router.post("/", (req, res) => {
     } = req.body;
 
     const dar = {
+      email,
       damage,
       facility,
       severity,
@@ -33,6 +34,7 @@ router.post("/", (req, res) => {
       concealed,
       notConcealed,
       remarks,
+      assessor,
     };
     const transporter = nodemailer.createTransport({
       service: "gmail", //Stating the mailing service we will be using
