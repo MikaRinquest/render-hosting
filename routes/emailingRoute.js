@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const handlebars = require("handlebars");
+// const fs = require("fs");
+// const handlebars = require("handlebars");
 const nodemailer = require("nodemailer");
 
 // Send DAR info
@@ -44,11 +44,11 @@ router.post("/", (req, res) => {
 
     const mailData = {
       from: process.env.MAILER_USER,
-      to: "rinquestmika@gmail.com",
+      to: `${dar.email}`,
       subject: "Sending DAR information",
       html: `  <div>
-      <p>Damage Type:${dar.damage}}</p>
-      <p>Facility:${dar.facility}}</p>
+      <p>Damage Type:${dar.damage}</p>
+      <p>Facility:${dar.facility}</p>
       <p>Leak/Damage Severity:${dar.severity}</p>
       <p>Inspection Category:${dar.category}</p>
       <p>Leak Detection Method:${dar.method}</p>
@@ -58,6 +58,7 @@ router.post("/", (req, res) => {
       <p>Concealed Leak/Damage Status:${dar.concealed}</p>
       <p>Not Concealed Leak/Damage Status:${dar.notConcealed}</p>
       <p>Remarks:${dar.remarks}</p>
+      <p>Report compiled by:${dar.assessor}</p>
     </div>`,
     };
     transporter.verify((error, success) => {
