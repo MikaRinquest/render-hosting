@@ -47,19 +47,19 @@ router.post("/", (req, res) => {
       from: process.env.MAILER_USER,
       to: "rinquestmika@gmail.com",
       subject: "Sending DAR information",
-      text: `  
-      Damage Type:{{dar.damage}}
-      Facility:{{dar.facility}}
-      Leak/Damage Severity:{{dar.severity}{}}
-      Inspection Category:{{dar.category}}
-      Leak Detection Method:{{dar.method}}
-      Repair Action Recommended:{{dar.recommendation}}
-      Internal Leak/Damage Location:{{dar.internalLocations}}
-      External Leak/Damage Location:{{dar.externalLocations}}
-      Concealed Leak/Damage Status:{{dar.concealed}}
-      Not Concealed Leak/Damage Status:{{dar.notConcealed}}
-      Remarks:{dar.remarks}
-    `,
+      text: `  <div>
+      <p>Damage Type:{{dar.damage}}</p>
+      <p>Facility:{{dar.facility}}</p>
+      <p>Leak/Damage Severity:{{dar.severity}{}}</p>
+      <p>Inspection Category:{{dar.category}}</p>
+      <p>Leak Detection Method:{{dar.method}}</p>
+      <p>Repair Action Recommended:{{dar.recommendation}}</p>
+      <p>Internal Leak/Damage Location:{{dar.internalLocations}}</p>
+      <p>External Leak/Damage Location:{{dar.externalLocations}}</p>
+      <p>Concealed Leak/Damage Status:{{dar.concealed}}</p>
+      <p>Not Concealed Leak/Damage Status:{{dar.notConcealed}}</p>
+      <p>Remarks:{dar.remarks}</p>
+    </div>`,
     };
     transporter.verify((error, success) => {
       if (error) {
