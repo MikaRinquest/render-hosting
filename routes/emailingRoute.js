@@ -7,14 +7,6 @@ const nodemailer = require("nodemailer");
 // Send DAR info
 router.post("/", (req, res) => {
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail", //Stating the mailing service we will be using
-      auth: {
-        user: process.env.MAILER_USER, //Accessing the account in dotenv
-        pass: process.env.MAILER_PASS, //Accessing the password in dotenv
-      },
-    });
-
     const {
       damage,
       facility,
@@ -42,6 +34,13 @@ router.post("/", (req, res) => {
       notConcealed,
       remarks,
     };
+    const transporter = nodemailer.createTransport({
+      service: "gmail", //Stating the mailing service we will be using
+      auth: {
+        user: process.env.MAILER_USER, //Accessing the account in dotenv
+        pass: process.env.MAILER_PASS, //Accessing the password in dotenv
+      },
+    });
 
     const mailData = {
       from: process.env.MAILER_USER,
