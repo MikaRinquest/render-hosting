@@ -115,11 +115,11 @@ router.patch("/site/:id", (req, res) => {
 // Edit quote
 router.patch("/quote/:id", (req, res) => {
   try {
-    // let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
-    let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
-    const { qteDarDate } = req.body;
-    const claim = { qteDarDate };
-    con.query(sql, claim, (err, result) => {
+    let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
+    // let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
+    // const { qteDarDate } = req.body;
+    // const claim = { qteDarDate };
+    con.query(sql, (err, result) => {
       if (err) throw err;
       res.json("Updated claim");
     });
@@ -132,11 +132,11 @@ router.patch("/quote/:id", (req, res) => {
 // Edit auth
 router.patch("/auth/:id", (req, res) => {
   try {
-    // let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
-    let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
-    const { authDate } = req.body;
-    const claim = { authDate };
-    con.query(sql, claim, (err, result) => {
+    let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
+    // let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
+    // const { authDate } = req.body;
+    // const claim = { authDate };
+    con.query(sql, (err, result) => {
       if (err) throw err;
       res.json("Updated claim");
     });
@@ -149,11 +149,11 @@ router.patch("/auth/:id", (req, res) => {
 // Edit inv
 router.patch("/inv/:id", (req, res) => {
   try {
-    // let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
-    let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
-    const { invDate } = req.body;
-    const claim = { invDate };
-    con.query(sql, claim, (err, result) => {
+    let sql = `UPDATE claims SET  siteAssDate=CURDATE() + INTERVAL 1 DAY WHERE claimID = ${req.params.id}`;
+    // let sql = `UPDATE claims SET ? WHERE claimID = ${req.params.id}`;
+    // const { invDate } = req.body;
+    // const claim = { invDate };
+    con.query(sql, (err, result) => {
       if (err) throw err;
       res.json("Updated claim");
     });
