@@ -8,6 +8,7 @@ const nodemailer = require("nodemailer");
 router.post("/", (req, res) => {
   try {
     const {
+      email,
       damage,
       facility,
       severity,
@@ -19,6 +20,7 @@ router.post("/", (req, res) => {
       concealed,
       notConcealed,
       remarks,
+      assessor,
     } = req.body;
 
     const dar = {
