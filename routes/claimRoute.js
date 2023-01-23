@@ -80,7 +80,6 @@ router.post("/", (req, res) => {
       qteDarDate,
       authDate,
       invDate,
-      dar,
       clientID,
     };
 
@@ -97,7 +96,7 @@ router.post("/", (req, res) => {
 // Edit site assessment
 router.patch("/site/:id", (req, res) => {
   try {
-    let sql = `insert into claims SET ? WHERE claimID = ${req.params.id}`;
+    let sql = `INSERT INTO claims SET ? WHERE claimID = ${req.params.id}`;
     const { siteAssDate } = req.body;
     const claim = { siteAssDate };
     con.query(sql, claim, (err, result) => {
@@ -113,7 +112,7 @@ router.patch("/site/:id", (req, res) => {
 // Edit quote
 router.patch("/quote/:id", (req, res) => {
   try {
-    let sql = `insert into claims SET ? WHERE claimID = ${req.params.id}`;
+    let sql = `INSERT INTO claims SET ? WHERE claimID = ${req.params.id}`;
     const { qteDarDate } = req.body;
     const claim = { qteDarDate };
     con.query(sql, claim, (err, result) => {
@@ -129,7 +128,7 @@ router.patch("/quote/:id", (req, res) => {
 // Edit auth
 router.patch("/auth/:id", (req, res) => {
   try {
-    let sql = `insert into claims SET ? WHERE claimID = ${req.params.id}`;
+    let sql = `INSERT INTO claims SET ? WHERE claimID = ${req.params.id}`;
     const { authDate } = req.body;
     const claim = { authDate };
     con.query(sql, claim, (err, result) => {
@@ -145,7 +144,7 @@ router.patch("/auth/:id", (req, res) => {
 // Edit inv
 router.patch("/inv/:id", (req, res) => {
   try {
-    let sql = `insert into claims SET ? WHERE claimID = ${req.params.id}`;
+    let sql = `INSERT INTO claims SET ? WHERE claimID = ${req.params.id}`;
     const { invDate } = req.body;
     const claim = { invDate };
     con.query(sql, claim, (err, result) => {
