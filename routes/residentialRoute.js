@@ -3,7 +3,7 @@ const router = express.Router();
 const con = require("../library/db_connection");
 
 //Get residential clients
-router.get("/residential", (req, res) => {
+router.get("/", (req, res) => {
   try {
     let sql =
       "SELECT * FROM residential INNER JOIN client on residential.clientID = client.clientID";
@@ -18,7 +18,7 @@ router.get("/residential", (req, res) => {
 });
 
 // Get one residential client from inner join
-router.get("/residential/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   try {
     let sql = `SELECT * FROM residential INNER JOIN client on residential.clientID = client.clientID WHERE claimID = ${req.params.id}`;
     con.query(sql, (err, result) => {

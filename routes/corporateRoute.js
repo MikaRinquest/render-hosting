@@ -3,7 +3,7 @@ const router = express.Router();
 const con = require("../library/db_connection");
 
 //Get claims with client inner join
-router.get("/corporate", (req, res) => {
+router.get("/", (req, res) => {
   try {
     let sql =
       "SELECT * FROM corporate INNER JOIN client on corporate.clientID = client.clientID";
@@ -18,7 +18,7 @@ router.get("/corporate", (req, res) => {
 });
 
 // Get one claim from inner join
-router.get("/corporate/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   try {
     let sql = `SELECT * FROM corporate INNER JOIN client on corporate.clientID = client.clientID WHERE claimID = ${req.params.id}`;
     con.query(sql, (err, result) => {

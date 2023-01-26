@@ -4,7 +4,7 @@ const con = require("../library/db_connection");
 const nodemailer = require("nodemailer");
 
 //Get all clients
-router.get("/client/:id", (req, res) => {
+router.get("/", (req, res) => {
   try {
     let sql = `SELECT * FROM client WHERE userID = ${req.params.id}`;
     con.query(sql, (err, result) => {
@@ -18,7 +18,7 @@ router.get("/client/:id", (req, res) => {
 });
 
 // Get one client
-router.get("/client/:id/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   try {
     let sql = `SELECT * FROM client WHERE clientID = ${req.params.id}`;
     con.query(sql, (err, result) => {
