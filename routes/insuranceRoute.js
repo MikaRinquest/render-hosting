@@ -30,6 +30,7 @@ router.get("/insurance/:id", (req, res) => {
     res.status(400).json(error);
   }
 });
+
 // Get all claims
 router.get("/", (req, res) => {
   try {

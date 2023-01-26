@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const con = require("../library/db_connection");
+const nodemailer = require("nodemailer");
 
 //Get all clients
-router.get("/", (req, res) => {
+router.get("/client/:id", (req, res) => {
   try {
-    let sql = "SELECT * FROM client";
+    let sql = `SELECT * FROM client WHERE userID = ${req.params.id}`;
     con.query(sql, (err, result) => {
       if (err) throw err;
       res.json(result);
@@ -17,7 +18,7 @@ router.get("/", (req, res) => {
 });
 
 // Get one client
-router.get("/:id", (req, res) => {
+router.get("/client/:id/:id", (req, res) => {
   try {
     let sql = `SELECT * FROM client WHERE clientID = ${req.params.id}`;
     con.query(sql, (err, result) => {
@@ -41,6 +42,8 @@ router.post("/", (req, res) => {
       streetAddress,
       area,
       insurer,
+      userID,
+      userName,
     } = req.body;
 
     let client = {
@@ -50,11 +53,47 @@ router.post("/", (req, res) => {
       streetAddress,
       area,
       insurer,
+      userID,
+    };
+
+    let user = {
+      userName,
     };
 
     con.query(sql, client, (err, result) => {
       if (err) throw err;
       res.json("Client has successfully been added.");
+    });
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail", //Stating the mailing service we will be using
+      auth: {
+        user: process.env.MAILER_USER, //Accessing the account in dotenv
+        pass: process.env.MAILER_PASS, //Accessing the password in dotenv
+      },
+    });
+
+    const mailData = {
+      from: process.env.MAILER_USER,
+      to: process.env.MAILER_USER,
+      subject: "New Client Added",
+      html: `  <div>
+    <p>The client ${client.fullName} has been added by ${user.userName}</p>
+    </div>`,
+    };
+    transporter.verify((error, success) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email valid", success);
+      }
+    });
+    transporter.sendMail(mailData, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.send("Please check your emails");
+      }
     });
   } catch (error) {
     console.log(error);
