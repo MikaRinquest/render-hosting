@@ -6,7 +6,7 @@ const nodemailer = require("nodemailer");
 //Get all clients
 router.get("/", (req, res) => {
   try {
-    let sql = `SELECT * FROM client WHERE userID = ${req.params.id}`;
+    let sql = `SELECT * FROM client `;
     con.query(sql, (err, result) => {
       if (err) throw err;
       res.json(result);
