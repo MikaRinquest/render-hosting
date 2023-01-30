@@ -3,7 +3,7 @@ const router = express.Router();
 const con = require("../library/db_connection");
 
 //Get claims with client inner join
-router.get("/insurance", (req, res) => {
+router.get("/", (req, res) => {
   try {
     let sql =
       "SELECT * FROM insurance INNER JOIN client on insurance.clientID = client.clientID";
@@ -18,37 +18,9 @@ router.get("/insurance", (req, res) => {
 });
 
 // Get one claim from inner join
-router.get("/insurance/:id", (req, res) => {
-  try {
-    let sql = `SELECT * FROM claims INNER JOIN client on claims.clientID = client.clientID WHERE claimID = ${req.params.id}`;
-    con.query(sql, (err, result) => {
-      if (err) throw err;
-      res.send(result);
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
-  }
-});
-
-// Get all claims
-router.get("/", (req, res) => {
-  try {
-    let sql = "SELECT * FROM claims";
-    con.query(sql, (err, result) => {
-      if (err) throw err;
-      res.send(result);
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
-  }
-});
-
-// Get one claim
 router.get("/:id", (req, res) => {
   try {
-    let sql = `SELECT * FROM claims WHERE claimID = ${req.params.id}`;
+    let sql = `SELECT * FROM insurance INNER JOIN client on insurance.clientID = client.clientID WHERE claimID = ${req.params.id}`;
     con.query(sql, (err, result) => {
       if (err) throw err;
       res.send(result);
@@ -63,23 +35,11 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   try {
     let sql = "INSERT INTO claims SET ?";
-    const {
-      claimsNumber,
-      damages,
-      siteAssDate,
-      qteDarDate,
-      authDate,
-      invDate,
-      clientID,
-    } = req.body;
-
+    const { insurer, claimsNumber, damages, clientID } = req.body;
     let claim = {
+      insurer,
       claimsNumber,
       damages,
-      siteAssDate,
-      qteDarDate,
-      authDate,
-      invDate,
       clientID,
     };
 

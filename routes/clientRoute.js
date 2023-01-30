@@ -31,28 +31,33 @@ router.get("/:id", (req, res) => {
   }
 });
 
-//Add a new client
+//Add a new client for insurance
 router.post("/", (req, res) => {
   try {
     let sql = "INSERT INTO client SET ?";
     const {
       fullName,
       phoneNumber,
+      altNumber,
       emailAddress,
       streetAddress,
       area,
-      insurer,
+      industry,
       userID,
       userName,
     } = req.body;
 
+    const date = new Date().toISOString().slice(0, 10);
+
     let client = {
       fullName,
       phoneNumber,
+      altNumber,
       emailAddress,
       streetAddress,
       area,
-      insurer,
+      industry,
+      date,
       userID,
     };
 
@@ -63,6 +68,7 @@ router.post("/", (req, res) => {
     con.query(sql, client, (err, result) => {
       if (err) throw err;
       res.json("Client has successfully been added.");
+      console.log(result.clientID);
     });
 
     const transporter = nodemailer.createTransport({
@@ -70,15 +76,17 @@ router.post("/", (req, res) => {
       auth: {
         user: process.env.MAILER_USER, //Accessing the account in dotenv
         pass: process.env.MAILER_PASS, //Accessing the password in dotenv
+        //If using an actual gmail account, your real password won't work
+        //You need to generate a key as your "password"
       },
     });
 
     const mailData = {
       from: process.env.MAILER_USER,
-      to: process.env.MAILER_USER,
+      to: process.env.MAILER_USER, //Can be from .env file, or hard coded, or from req.body
       subject: "New Client Added",
       html: `  <div>
-    <p>The client ${client.fullName} has been added by ${user.userName}</p>
+    <p>${client.fullName} has been added by ${user.userName}</p>
     </div>`,
     };
     transporter.verify((error, success) => {
