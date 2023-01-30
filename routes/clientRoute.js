@@ -34,7 +34,7 @@ router.get("/:id", (req, res) => {
 //Add a new client for insurance
 router.post("/", (req, res) => {
   try {
-    // let sql = "INSERT INTO client SET ?";
+    let sql = "INSERT INTO client SET ?";
     const {
       fullName,
       phoneNumber,
