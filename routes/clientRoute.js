@@ -34,7 +34,7 @@ router.get("/:id", (req, res) => {
 //Add a new client for insurance
 router.post("/", (req, res) => {
   try {
-    let sql = "INSERT INTO client SET ?";
+    // let sql = "INSERT INTO client SET ?";
     const {
       fullName,
       phoneNumber,
@@ -45,6 +45,9 @@ router.post("/", (req, res) => {
       industry,
       userID,
       userName,
+      // insurer,
+      // claimsNumber,
+      // damages,
     } = req.body;
 
     const date = new Date().toISOString().slice(0, 10);
@@ -61,15 +64,34 @@ router.post("/", (req, res) => {
       userID,
     };
 
+    // let claimsql = "INSERT INTO claims SET ?";
+
+    // let clientID = "SELECT @last_id := LAST_INSERT_ID( )";
+
+    // let claim = {
+    //   insurer,
+    //   claimsNumber,
+    //   damages,
+    //   clientID,
+    // };
+
     let user = {
       userName,
     };
 
     con.query(sql, client, (err, result) => {
-      if (err) throw err;
-      res.json("Client has successfully been added.");
-      console.log(result.clientID);
+      if (err) {
+        throw err;
+      } else {
+        res.json("Client has successfully been added.");
+        // let id = result.insertId;
+      }
     });
+
+    // con.query(claimsql, claim, (e, r) => {
+    //   if (e) throw e;
+    //   res.json(r);
+    // });
 
     const transporter = nodemailer.createTransport({
       service: "gmail", //Stating the mailing service we will be using

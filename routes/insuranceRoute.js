@@ -31,10 +31,10 @@ router.get("/:id", (req, res) => {
   }
 });
 
-// Add new claim
+// Add new claim with existing client
 router.post("/", (req, res) => {
   try {
-    let sql = "INSERT INTO claims SET ?";
+    let sql = "INSERT INTO insurance SET ?";
     const { insurer, claimsNumber, damages, clientID } = req.body;
     let claim = {
       insurer,
