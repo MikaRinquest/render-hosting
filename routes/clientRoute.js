@@ -31,35 +31,6 @@ router.get("/:id", (req, res) => {
   }
 });
 
-//Get insurance clients details
-router.get("/insurance", (req, res) => {
-  try {
-    let sql =
-      "SELECT * FROM insurance INNER JOIN client on insurance.clientID = client.clientID";
-    con.query(sql, (err, result) => {
-      if (err) throw err;
-      res.json(result);
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
-  }
-});
-
-// Get one claim from inner join
-router.get("/insurance/:id", (req, res) => {
-  try {
-    let sql = `SELECT * FROM insurance INNER JOIN client on insurance.clientID = client.clientID WHERE claimID = ${req.params.id}`;
-    con.query(sql, (err, result) => {
-      if (err) throw err;
-      res.send(result);
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
-  }
-});
-
 //Add a new client for insurance
 router.post("/", (req, res) => {
   try {

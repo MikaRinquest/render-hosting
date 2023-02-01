@@ -9,6 +9,7 @@ const port = process.env.PORT || 8008;
 // Import routes
 const userRoute = require("./routes/userRoute");
 const insuranceRoute = require("./routes/insuranceRoute");
+const claimsRoute = require("./routes/claimsRoute");
 const residentialRoute = require("./routes/residentialRoute");
 const corporateRoute = require("./routes/corporateRoute");
 const realEstateRoute = require("./routes/realEstateRoute");
@@ -36,12 +37,27 @@ app.listen(port, (req, res) => {
 // );
 
 // Using the routes
+
+// For those loggin in/registering
 app.use("/user", userRoute);
+
+// For the basic client details
 app.use("/clients", clientRoute);
+
+// For insurance clients
 app.use("/insurance", insuranceRoute);
+app.use("/claims", claimsRoute);
+
+// For residential clients
 app.use("/residential", residentialRoute);
+
+// For corporate clients
 app.use("/corporate", corporateRoute);
+
+// For real estate clients
 app.use("/realestate", realEstateRoute);
+
+// For emailing
 app.use("/email", emailingRoutes);
 
 // export 'app'
