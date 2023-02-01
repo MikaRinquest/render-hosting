@@ -2,11 +2,10 @@ const express = require("express");
 const router = express.Router();
 const con = require("../library/db_connection");
 
-//Get claims with client inner join
-router.get("/", (req, res) => {
+//Get all claims related to client
+router.get("/:id", (req, res) => {
   try {
-    let sql =
-      "SELECT * FROM insurance INNER JOIN client on insurance.clientID = client.clientID";
+    let sql = `SELECT * FROM insurance WHERE clientID = ${req.params.id}`;
     con.query(sql, (err, result) => {
       if (err) throw err;
       res.json(result);
@@ -17,13 +16,13 @@ router.get("/", (req, res) => {
   }
 });
 
-// Get one claim from inner join
-router.get("/:id", (req, res) => {
+// Get one claim related to client
+router.get("/:first/:second", (req, res) => {
   try {
-    let sql = `SELECT * FROM insurance INNER JOIN client on insurance.clientID = client.clientID WHERE claimID = ${req.params.id}`;
+    let sql = `SELECT * FROM insurance WHERE clientID = ${req.params.first} AND WHERE claimID = ${req.params.second}`;
     con.query(sql, (err, result) => {
       if (err) throw err;
-      res.send(result);
+      res.json(result);
     });
   } catch (error) {
     console.log(error);
